@@ -51,7 +51,12 @@ def bayar_hutang(saldo, hutang, total_bayar):
             return saldo, hutang
         if jawab.lower() == 'tidak':
             print('Yasudah. Terimakasih')
+            input('Tekan enter untuk kembali ke menu')
             return main()
+        else:
+            print('Masukan input yang valid')
+            input('Tekan enter untuk melanjutkan')
+            return bayar_hutang(saldo, hutang, total_bayar)
     elif total_bayar <= saldo:
         hutang = hutang - total_bayar
         saldo = saldo - total_bayar
@@ -65,29 +70,34 @@ def bayar_hutang(saldo, hutang, total_bayar):
 
 # Pilihan 4
 def bayar_hutang_menu(saldo, hutang):
-    print(f'Kamu memiliki saldo sebesar {rupiah(saldo)}')
-    print(f'Kamu memiliki hutang sebesar {rupiah(hutang)}')
-    print(f'Apakah kam yakin ingin membayar hutang?')
-    jawab = input('Jawab "ya" atau "tidak": ')
-    if jawab.lower() == 'ya':
-        bayar = input('Mau bayar berapa?: ')
-        if bayar.isdigit():
-            bayar = int(bayar)
-            saldo, hutang = bayar_hutang(saldo, hutang, bayar)
-            return saldo, hutang
-        else:
-            print('Masukan input yang valdi')
-            input('Tekan enter untuk melanjutkan')
-            return bayar_hutang_menu(saldo, hutang)
-    elif jawab.lower() == 'tidak':
-        print('Yasudah. Terimakasih')
+    if hutang <= 0:
+        print('Kamu tidak memiliki hutang')
         input('Tekan enter untuk kembali ke menu')
         return main()
     else:
-        print('Input tidak valid')
-        input('Tekan enter untuk melanjutkan')
-        bayar_hutang_menu(saldo, hutang)
-        return saldo, hutang
+        print(f'Kamu memiliki saldo sebesar {rupiah(saldo)}')
+        print(f'Kamu memiliki hutang sebesar {rupiah(hutang)}')
+        print(f'Apakah kam yakin ingin membayar hutang?')
+        jawab = input('Jawab "ya" atau "tidak": ')
+        if jawab.lower() == 'ya':
+            bayar = input('Mau bayar berapa?: ')
+            if bayar.isdigit():
+                bayar = int(bayar)
+                saldo, hutang = bayar_hutang(saldo, hutang, bayar)
+                return saldo, hutang
+            else:
+                print('Masukan input yang valdi')
+                input('Tekan enter untuk melanjutkan')
+                return bayar_hutang_menu(saldo, hutang)
+        elif jawab.lower() == 'tidak':
+            print('Yasudah. Terimakasih')
+            input('Tekan enter untuk kembali ke menu')
+            return main()
+        else:
+            print('Input tidak valid')
+            input('Tekan enter untuk melanjutkan')
+            bayar_hutang_menu(saldo, hutang)
+            return saldo, hutang
 
 # Cek hutang
 def cek_hutang(hutang):
