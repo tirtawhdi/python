@@ -4,7 +4,8 @@ welcome = 'Halo selamat datang di ATM Tirta jaya'
 opsi = '''Ketik "1" untuk mengecek saldo
 Ketik "2" untuk mengisi saldo
 Ketik "3" untuk mengecek hutang
-Ketik "4" untuk membayar hutang'''
+Ketik "4" untuk membayar hutang
+Ketik "0" untuk exit'''
 
 # Integer ke rupiah
 def rupiah(saldo):
@@ -131,8 +132,13 @@ def main():
             saldo, hutang = bayar_hutang_menu(saldo, hutang)
             input('Tekan enter untuk kembali ke menu')
             return main()
+        elif pilihan == 0:
+            print('Terimakasih telah menggunakan layanan kami')
+            input('Tekan enter untuk keluar')
+            return
         else:
             print('Pilihan tidak tersedia')
+            return main()
     else:
         print(f'Masukan input yang valid')
         input('Tekan enter untuk melanjutkan')
