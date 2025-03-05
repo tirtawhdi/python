@@ -1,37 +1,27 @@
-saldo = 8000000
+saldo = 0
 hutang = 1000000
-welcome = 'Halo selamat datang di ATM Tirta jaya'
-opsi = '''Ketik "1" untuk mengecek saldo
-Ketik "2" untuk mengisi saldo
-Ketik "3" untuk mengecek hutang
-Ketik "4" untuk membayar hutang
-Ketik "0" untuk exit'''
 
 # Integer ke rupiah
 def rupiah(saldo):
     return f'Rp{saldo:,.2f}'.replace(',', '.')
 
 # Deposit
-def deposit(saldo, total_depo):
-    saldo = saldo + total_depo
+def deposit(saldo_awal, total_depo):
+    saldo = saldo_awal + total_depo
     print(f'Selamat. Anda berhasil deposit sebesar {rupiah(total_depo)}')
     print(f'Sekarang saldo anda adalah {rupiah(saldo)}')
     return saldo
-
-def depo():
-    duit = input('Masukkan nominal deposit: ')
-    if duit.isdigit():
-        duit = int(duit)
-        duit = deposit(saldo, duit)
-        return duit 
+def depo_menu():
+    depo = input('Masukkan nominal deposit: ')
+    if depo.isdigit():
+        depo = int(depo)
+        depo = deposit(saldo, depo)
+        return depo
     else:
         print('Masukan input yang valid')
-        return depo()
-# Saldo
-def cek_saldo(saldo):
-    print(f'Saldo anda adalah {rupiah(saldo)}')
-    
-# Bayar hutang fungsi    
+        return depo_menu()
+     
+# Bayar hutang   
 def bayar_hutang(saldo, hutang, total_bayar):
     if total_bayar > saldo:
         print('Saldo tidak mencukupi')
@@ -68,8 +58,7 @@ def bayar_hutang(saldo, hutang, total_bayar):
         else:
             print(f'Sekarang hutang mu adalah {rupiah(hutang)}')
         return saldo, hutang
-
-# Pilihan 4
+# bayar_hutang_menu
 def bayar_hutang_menu(saldo, hutang):
     if hutang <= 0:
         print('Kamu tidak memiliki hutang')
@@ -99,7 +88,11 @@ def bayar_hutang_menu(saldo, hutang):
             input('Tekan enter untuk melanjutkan')
             bayar_hutang_menu(saldo, hutang)
             return saldo, hutang
-
+        
+# Cek_Saldo
+def cek_saldo(saldo):
+    print(f'Saldo anda adalah {rupiah(saldo)}')
+   
 # Cek hutang
 def cek_hutang(hutang):
     if hutang <= 0:
@@ -113,6 +106,12 @@ def cek_hutang(hutang):
 
 def main():
     global saldo, hutang
+    welcome = 'Halo selamat datang di ATM Tirta jaya'
+    opsi = '''Ketik "1" untuk mengecek saldo
+Ketik "2" untuk mengisi saldo
+Ketik "3" untuk mengecek hutang
+Ketik "4" untuk membayar hutang
+Ketik "0" untuk exit'''
     print(welcome)
     print(opsi)
     pilihan = input('Masukan pilihanmu: ')
@@ -123,7 +122,7 @@ def main():
             input('Tekan enter untuk kembali ke menu')
             return main()
         elif pilihan == 2:
-            saldo = depo()
+            saldo = depo_menu()
             input('Tekan enter untuk kembali ke menu')
             return main()
         elif pilihan == 3:
