@@ -1,11 +1,7 @@
 from random import randint
 from time import sleep
-gua_str = '|____|'
-gua_array = [gua_str] * 4
-index = 1
-space = ' ' * 5
-mix = len(space * 3) + len(gua_str) * 4
-border1 = '=' * mix
+from mylibs import welcome_message, gua
+
 def sikinci_games(result):
     sikinci = randint(1, 4)
     buah = gua_array
@@ -51,22 +47,15 @@ def sikinci_games(result):
     else:
         print('Masukan input yang valid')
         sikinci_games(input('Pilih gua yang kamu rasa benar: '))
-        
-
-
 def sikinci_games_menu():
-    welcome = 'Selamat datang di SIKINCI GAMES!!!!'
-    border = '=' * len(welcome)
-    print(border)
-    print(welcome)
-    print(border)
+    welcome_message('Selamat datang di SIKINCI GAMES')
     jawab = input('Apakah kamu ingin bermain? (ya/tidak): ')
     print("\033[A\033[K", end="")
     while jawab.lower() != 'ya' and jawab.lower() != 'tidak':
         print('Harap masukan input (ya/tidak)')
         jawab = input('Apakah kamu ingin bermain? (ya/tidak): ')
         print("\033[A\033[K\033[A\033[K", end="")
-    if jawab == 'ya':
+    if jawab.lower() == 'ya':
         nama = input('Silahkan masukan nama kamu: ')
         print("\033[A\033[K", end="")
         while len(nama) < 2 or nama == ' ':
@@ -89,11 +78,7 @@ def sikinci_games_menu():
         print('Kamu harus memilih gua yang benar untuk mendapatkan buah-buahan tersebut')
         input('Tekan enter untuk melanjutkan')
         print("\033[A\033[K", end="")
-        print(f'Berikut adalah 4 gua yang berbeda:')
-        print(border1)
-        print(space, *gua_array, space)
-        print(border1)
-        print('terdapat gua |1| |2| |3| |4|')
+        gua()
         jawaban = input('Pilih gua yang kamu rasa benar: ')
         print("\033[A\033[K\033[A\033[K", end="")
         sikinci_games(jawaban)
